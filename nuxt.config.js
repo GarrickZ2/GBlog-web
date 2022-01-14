@@ -1,41 +1,84 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
-  head: {
-    title: 'gblog-web',
-    htmlAttrs: {
-      lang: 'en'
+    // Global page headers: https://go.nuxtjs.dev/config-head
+    head: {
+        title: 'GBlog',
+        htmlAttrs: {
+            lang: 'en'
+        },
+        meta: [
+            {charset: 'utf-8'},
+            {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+            {
+                hid: 'description',
+                name: 'description',
+                content: 'Self Developed Technology Knowledge Sharing Blog Website by Garrick from Columbia Uni.'
+            },
+            {name: 'format-detection', content: 'telephone=no'}
+        ],
+        link: [
+            {rel: 'icon', type: 'image/x-icon', href: '/gblog.jpeg'}
+        ],
+        script: [
+            // {src: '/js/main.js'},
+            // {src: '/js/jquery.min.js'},
+            // {src: '/js/jquery.easing.1.3.js'},
+            // {src: '/js/bootstrap.min.js'},
+            // {src: '/js/jquery.waypoints.min.js'},
+            // {src: '/js/jquery.countTo.js'},
+            // {src: '/js/jquery.magnific-popup.min.js'},
+            // {src: '/js/magnific-popup-options.js'},
+            // {src: '/js/modernizr-2.6.2.min.js'},
+            // {src: '/js/jquery.stellar.min.js'},
+        ]
     },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+
+    // Global CSS: https://go.nuxtjs.dev/config-css
+    css: [
+        'element-ui/lib/theme-chalk/index.css',
+        '@/assets/theme/index.css',
+        'element-ui/lib/theme-chalk/display.css',
+        "~/static/css/style.css",
+        "~/static/css/bootstrap.css",
+        "~/static/css/flexslider.css",
+        "~/static/css/icomoon.css",
+        "~/static/css/magnific-popup.css",
+        "~/static/css/animate.css",
+        "~/static/css/fonts.css",
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
-  },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+    // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+    plugins: [
+        '@/plugins/element-ui.js'
+    ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+    // Auto import components: https://go.nuxtjs.dev/config-components
+    components: true,
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+    // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+    buildModules: [],
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-  ],
+    // Modules: https://go.nuxtjs.dev/config-modules
+    modules: [
+        '@nuxtjs/axios',
+    ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-  ],
+    axios:{
+        proxy: true,
+        prefix: '/api',
+    },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+    proxy:{
+      'api/': {
+          target: 'https://mock.mengxuegu.com/mock/61df6b5717249f68847fbeed/exampl',
+          pathRewrite: {'^/api': ''},
+      }
+    },
+
+    // Build Configuration: https://go.nuxtjs.dev/config-build
+    build: {
+        transpile: [/^element-ui/],
+        extend(config, ctx) {
+
+        }
+    }
 }
