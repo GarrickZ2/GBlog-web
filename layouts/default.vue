@@ -16,8 +16,9 @@
                 text-align: center;
                 line-height: 40px;
                 border-radius: 25px;
-                color: white;}"
-            >UP</div>
+                color: white;}">
+                <i class="el-icon-arrow-up"></i>
+            </div>
         </el-backtop>
     </div>
 </template>

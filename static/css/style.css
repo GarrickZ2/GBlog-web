@@ -138,6 +138,10 @@ h1, h2, h3, h4, h5, h6, figure {
     color: #fff;
 }
 
+.fh5co-nav a:hover {
+    color: #F73859;
+}
+
 @media screen and (max-width: 768px) {
     .fh5co-nav .menu-1 {
         display: none;
@@ -667,7 +671,7 @@ h1, h2, h3, h4, h5, h6, figure {
 #fh5co-team,
 #fh5co-contact,
 #fh5co-footer {
-    padding: 7em 0;
+    padding: 2em 0;
     clear: both;
 }
 
@@ -772,6 +776,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #fh5co-blog .fh5co-post {
+    display: flex;
     background: #fff;
     float: left;
     width: 100%;
@@ -809,7 +814,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #fh5co-blog .fh5co-post p.author {
-    color: #b3b3b3;
+    /*color: #b3b3b3;*/
 }
 
 #fh5co-blog .fh5co-post p.author img {
@@ -1897,7 +1902,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .row-pb-md {
-    padding-bottom: 4em !important;
+    padding-bottom: 1em !important;
 }
 
 .row-pb-sm {
@@ -1930,4 +1935,4 @@ h1, h2, h3, h4, h5, h6, figure {
     border-bottom-left-radius: 0px !important;
 }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=static/style.css.map */

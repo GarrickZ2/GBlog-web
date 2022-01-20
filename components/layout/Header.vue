@@ -18,11 +18,11 @@
             </el-col>
             <el-col :xs="18" :sm="18" :md="8">
                 <div class="nav-sign">
-                    <el-button type="text" class="nav-item2">Login</el-button>
-                    <el-button type="primary" size="small" round class="nav-item2">Signup</el-button>
+                    <el-button  type="text" v-if="!userInfo" class="nav-item2" @click="$store.dispatch('LoginPage')">Login</el-button>
+                    <el-button type="primary" v-if="!userInfo" size="small" round class="nav-item2" @click="$store.dispatch('SignupPage')">Signup</el-button>
                 </div>
             </el-col>
-            <el-dropdown class="nav-dropdown" @command="handleCommand">
+            <el-dropdown v-if="userInfo" class="nav-dropdown" @command="handleCommand">
                 <div class="el-dropdown-link">
 <!--                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>-->
                     <el-avatar icon="el-icon-user-solid"></el-avatar>
@@ -41,7 +41,6 @@
                     cursor: pointer;
                     color: #409EFF;
                 }
-
                 .el-icon-arrow-down {
                     font-size: 12px;
                 }
@@ -54,12 +53,33 @@
 <script>
 export default {
     name: "Header.vue",
+    computed: {
+        userInfo() {
+            return this.$store.state.userInfo
+        }
+    },
     mounted() {
         window.addEventListener("scroll", this.windowScroll); //监听页面滚动
     },
     methods: {
         handleCommand(command) {
             this.$message('User Click the button ' + command)
+            let routeData
+            switch (command) {
+                case 'article':
+                    routeData = this.$router.resolve('/article/edit')
+                    window.open(routeData.href, '_blank')
+                    break;
+                case 'question':
+                    routeData = this.$router.resolve('/question/edit')
+                    window.open(routeData.href, '_blank')
+                    break;
+                case 'logout':
+                    this.$store.dispatch('Logout')
+                    break;
+                default:
+                    break;
+            }
         },
         windowScroll() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -110,7 +130,7 @@ div:focus {
 .nav-sign{
     text-align: right;
     font-size: 20px;
-    margin: 0;
+    margin: auto 5rem;
     padding: 0;
 }
 .nav-dropdown {

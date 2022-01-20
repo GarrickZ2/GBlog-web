@@ -48,7 +48,12 @@ export default {
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
-        '@/plugins/element-ui.js'
+        '@/plugins/element-ui',
+        '@/plugins/interceptor',
+        {src:'@/plugins/mavon-editor', mode:'client', ssr:false},
+        '@/api/question',
+        '@/api/article',
+        '@/api/common',
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -60,6 +65,7 @@ export default {
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
         '@nuxtjs/axios',
+        'cookie-universal-nuxt',
     ],
 
     axios:{
@@ -68,8 +74,8 @@ export default {
     },
 
     proxy:{
-      'api/': {
-          target: 'https://mock.mengxuegu.com/mock/61df6b5717249f68847fbeed/exampl',
+      '/api': {
+          target: 'https://mock.mengxuegu.com/mock/61e6437817249f68847fc292/gblog',
           pathRewrite: {'^/api': ''},
       }
     },
@@ -80,5 +86,8 @@ export default {
         extend(config, ctx) {
 
         }
-    }
+    },
+    env: {
+        authURL: process.env.NODE_ENV === 'dev'? '//localhost:7001' : '//login.garrick.cn'
+    },
 }

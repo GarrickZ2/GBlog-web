@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <footer id="fh5co-footer" role="contentinfo">
+    <div id="fh5co-footer" role="contentinfo">
             <div class="container">
                 <div class="row row-pb-md">
                     <div class="col-md-4 fh5co-widget ">
@@ -54,9 +53,7 @@
                         <p></p>
                     </div>
                 </div>
-
             </div>
-        </footer>
     </div>
 </template>
 
