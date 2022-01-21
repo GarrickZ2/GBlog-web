@@ -28,7 +28,7 @@
                                     <i class="icon-thumbs-up"></i> {{article.thumbUp}}
                                     <i class="el-icon-view"></i> {{article.viewCount}}
                                     <nuxt-link v-if="this.$store.state.userInfo && $store.state.userInfo.uid === article.userId"
-                                               :to="{path:'/article/edit', query:{id:article.id}}">Edit</nuxt-link>
+                                               :to="{path:'/question/edit', query:{id:article.id}}">Edit</nuxt-link>
                                 </p>
                                 <el-tag v-for="item in article.labelList" size="small" style="margin-right: 1%">{{item.name}}</el-tag>
                             </div>
@@ -67,6 +67,18 @@
             </el-row>
         </div>
 
+        <div style="margin-left: 13%; width: 50%">
+            <h2>Post Your Answer</h2>
+            <el-card v-if="!$store.state.userInfo">
+                <h4>Please Login to participate the discussion</h4>
+            </el-card>
+            <el-card v-else>
+                <mavon-editor :autofocus="false" ref="md" v-model="mdContent" @change="getMdHtml"
+                              @imgAdd="uploadContentImg" @imgDel="delContentImg" />
+                <el-button type="primary" @click="submitData" style="margin-left: 45%; margin-top: 2%">Submit</el-button>
+            </el-card>
+        </div>
+
     </div>
 </template>
 
@@ -83,6 +95,8 @@ export default {
             isThumb: this.$cookies.get(`article-thumb-${this.$route.params.id}`) ? this.$cookies.get(`article-thumb-${this.$route.params.id}`) : false,
             userId: this.$store.state.userInfo && this.$store.state.userInfo.uid,
             userImage: this.$store.state.userInfo && this.$store.state.userInfo.imageUrl,
+            mdContent: '',
+            htmlContent: '',
         }
     },
     validate({params}) {
@@ -152,6 +166,48 @@ export default {
                 await this.refreshComment()
             }
         },
+        getMdHtml(mdContent, htmlContent) {
+            this.mdContent = mdContent
+            this.htmlContent = htmlContent
+        },
+        uploadContentImg(pos, file) {
+            let fd = new FormData()
+            fd.append('file', file)
+            this.$uploadImg(fd).then(response => {
+                console.log(response)
+                this.$refs.md.$img2Url(pos, response.data.data)
+            })
+        },
+        delContentImg(urlAndFileArr) {
+            const fileUrl = urlAndFileArr[0]
+            this.$deleteImg(fileUrl)
+        },
+        submitData({params}){
+            if (this.htmlContent === '') {
+                this.$message.error("Please write content")
+                return false
+            }
+            let mdContentCopy = this.mdContent
+            let htmlContentCopy = this.htmlContent
+            const data = {
+                htmlContentCopy,
+                mdContentCopy,
+                parentId: -1,
+                questionId: this.$route.params.id,
+                userId: this.userId,
+                userImage: this.userImage,
+                nickName: this.$store.state.userInfo && this.$store.state.userInfo.nickName
+            }
+            console.log(data)
+            this.$addReplay(data).then((response) => {
+                this.htmlContent = ''
+                this.mdContent = ''
+                this.refreshComment()
+            }).catch(error => {
+                this.$message.error(error)
+            })
+        },
+
     }
 
 }
@@ -172,6 +228,7 @@ export default {
     margin-top: 3%;
 }
 .thumb {
+    margin-top: 2%;
     margin-left: 40%;
 }
 </style>

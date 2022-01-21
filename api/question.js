@@ -8,4 +8,7 @@ export default ({$axios}, inject) => {
     inject('updateQuestionThumb', (questionId, count) => $axios.put(`/question/question/thumb/${questionId}/${count}`))
     inject('addReplay', data => $axios.post(`/question/replay`, data))
     inject('deleteReplayById', id => $axios.delete(`/question/replay/${id}`))
+    inject('addQuestion', data => $axios.post(`/question/question`, data))
+    inject('updateQuestion', data => $axios.put(`/question/question`, data))
+    inject('getQuestionListByLabelId', (page, id) => $axios.post(`/question/api/question/list/${id}`, page))
 }

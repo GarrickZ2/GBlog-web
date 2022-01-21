@@ -296,7 +296,9 @@ h1, h2, h3, h4, h5, h6, figure {
 .scrolled .fh5co-nav ul li.has-dropdown:hover > a, .scrolled .fh5co-nav ul li.has-dropdown:focus > a {
     color: #F73859;
 }
-
+#fh5co-header {
+    margin-bottom: 2%;
+}
 #fh5co-header,
 #fh5co-counter,
 .fh5co-bg {

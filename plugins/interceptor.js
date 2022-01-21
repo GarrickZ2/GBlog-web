@@ -10,9 +10,6 @@ export default ({store, route, redirect, $axios}) => {
         return config
     })
     $axios.onResponse(response => {
-        if (!store.state.accessToken) {
-            sendRefreshRequest(store, redirect, route)
-        }
     })
     $axios.onError(error => {
         if (error.response.status === 401) {

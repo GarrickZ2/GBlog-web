@@ -9,9 +9,9 @@
             </el-col>
 
             <el-col class="nav-main hidden-sm-and-down" :md="10">
-                <el-menu mode="horizontal" router default-active="/" active-text-color="#F73859">
+                <el-menu mode="horizontal" router :default-active="defaultActive()" active-text-color="#F73859">
                     <el-menu-item index="/" class="nav-item">HOME</el-menu-item>
-                    <el-menu-item index="blog" class="nav-item">BLOG</el-menu-item>
+                    <el-menu-item index="article" class="nav-item">BLOG</el-menu-item>
                     <el-menu-item index="question" class="nav-item">FAQ</el-menu-item>
                     <el-menu-item index="label" class="nav-item">LABEL</el-menu-item>
                 </el-menu>
@@ -74,6 +74,10 @@ export default {
                     routeData = this.$router.resolve('/question/edit')
                     window.open(routeData.href, '_blank')
                     break;
+                case 'user':
+                    routeData = this.$router.resolve('/user')
+                    window.open(routeData.href, '_blank')
+                    break;
                 case 'logout':
                     this.$store.dispatch('Logout')
                     break;
@@ -90,6 +94,13 @@ export default {
             } else {
                 page.className = 'scrolled'
             }
+        },
+        defaultActive() {
+            let routePath = this.$route.matched[0].path || '/'
+            if (routePath.indexOf('/', 1) !== -1) {
+                routePath = routePath.substring(0, routePath.indexOf('/', 1))
+            }
+            return routePath.indexOf('/article') !== -1? '/' : routePath
         },
     },
     destroyed() {

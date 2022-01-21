@@ -54,6 +54,7 @@ export default {
         '@/api/question',
         '@/api/article',
         '@/api/common',
+        '@/api/user',
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
