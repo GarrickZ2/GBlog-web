@@ -89,6 +89,6 @@ export default {
         }
     },
     env: {
-        authURL: process.env.NODE_ENV === 'dev'? '//localhost:7001' : '//login.garrick.cn'
+        authURL: process.env.NODE_ENV === 'dev'? '//localhost:7001' : '//www.auth.garrick.cn'
     },
 }
